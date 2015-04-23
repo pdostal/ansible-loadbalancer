@@ -1,10 +1,10 @@
 ---
-- name: loadbalancers
-  hosts: loadbalancers
+- name: loadbalancer
+  hosts: loadbalancer
   sudo: yes
   handlers:
   - name: Restart nginx service
-    service: name=ntpd state=restarted
+    service: name=nginx state=restarted
   tasks:
   - name: Install nginx
     pkgng: name=nginx state=present
@@ -12,9 +12,10 @@
     lineinfile: dest=/etc/rc.conf regexp=^nginx_enable= line=nginx_enable=YES
   - name: Paste nginx.conf
     template: src=templates/nginx.conf dest=/usr/local/etc/nginx/nginx.conf
+    notify: Restart nginx service
 
-- name: backends
-  hosts: backends
+- name: backend
+  hosts: backend
   sudo: yes
   tasks:
   - name: Update repositories
