@@ -17,7 +17,10 @@
 - name: backend servers
   hosts: backend
   sudo: yes
+  tags: backend
   tasks:
+  - name: Change DNS resolver
+    template: src=templates/dns dest=/etc/resolv.conf
   - name: Update repositories
     apt: update_cache=yes
   - name: Install apache2 and php5
