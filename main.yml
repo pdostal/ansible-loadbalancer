@@ -1,5 +1,5 @@
 ---
-- name: loadbalancer
+- name: loadbalancer server
   hosts: loadbalancer
   sudo: yes
   handlers:
@@ -14,7 +14,7 @@
     template: src=templates/nginx.conf dest=/usr/local/etc/nginx/nginx.conf
     notify: Restart nginx service
 
-- name: backend
+- name: backend servers
   hosts: backend
   sudo: yes
   tasks:
